@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="Author" content="Noah">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="favicon" href="favicon.ico">
+    <title>永至小店 - 永久地址发布页，收藏我回家不迷路！</title>
+    <meta name="keywords" content="永至小店发布页" />
+    <meta name="description" content="永至小店网址发布页" />
+    <link rel="stylesheet" href="./css/new.css">
+    <script type="text/javascript" src="./js/jquery-1.8.3.min.js"></script>
+    <style type="text/css">
+        .ms1 {
+            position: relative;
+            top: -28px;
+            float: right;
+            color: #02a982;
+        }
+    </style>
+</head>
+<body>
+    <div id="all">
+        <div class="wrapper">
+            <div class="main">
+                <h1>商城发布页</h1>
+                <div class="content">
+                    <div class="content-top">
+                        <h2>若网站不能打开请重新尝试其他域名</h2>
+                        <ul class="speedlist">
+                            <li>
+                                永至小店(主用)
+                                <a id="link1" href="https://shop.eydn.net" target="_blank">
+                                    <i>https://shop.eydn.net</i>
+                                </a>
+                                <i class="ms1">线路延迟：<i id="lineMs0">获取中</i></i>
+                            </li>
+                            
+                            <li>
+                                永至小店(备用)
+                                <a id="link2" href="https://shop.98.do" target="_blank">
+                                    <i>https://shop.98.do</i>
+                                </a>
+                                <i class="ms1">线路延迟：<i id="lineMs1">获取中</i></i>
+                            </li>
+                            
+                            <li>
+                                <span>电脑请安装<a href="https://www.google.cn/chrome/" target="_blank">Chrome浏览器</a>访问，手机请安装Safari浏览器</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="footer">© <span id="current-year"></span> Powered 永至科技. All Rights Reserved</p>
+            </div>
+            <ul class="bg-bubbles">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+    // 获取当前年份
+    const currentYear = new Date().getFullYear();
+    // 将年份插入到网页中
+    document.getElementById('current-year').textContent = currentYear;
+    
+    // 初始化测速URL数组
+    var autourl = [];
+    $('.speedlist li').each(function(index) {
+        const $link = $(this).find('a');
+        if ($link.length) {
+            // 排除包含 'Chrome浏览器' 的链接
+            if ($(this).text().includes('Chrome浏览器')) {
+                return; // 跳过这个 <li> 项
+            }
+            autourl[index] = $link.attr("href");
+        }
+    });
+
+    // 设置测速逻辑
+    function auto(url, index) {
+        var startTime = Date.now();
+        var timeoutId;
+
+        // 设置超时处理
+        timeoutId = setTimeout(function() {
+            $('#lineMs' + index).html('连接失败');
+        }, 5000); // 5秒超时
+
+        fetch(url, { mode: 'cors' })
+        .then(response => {
+            clearTimeout(timeoutId); // 清除超时处理
+            if (response.ok) {
+                var endTime = Date.now();
+                var delay = endTime - startTime;
+                $('#lineMs' + index).html(delay + 'ms');
+            } else {
+                $('#lineMs' + index).html('连接失败');
+            }
+        })
+        .catch(() => {
+            clearTimeout(timeoutId); // 清除超时处理
+            $('#lineMs' + index).html('连接失败');
+        });
+    }
+
+    // 循环检测线路连接
+    function run() {
+        for (var i = 0; i < autourl.length; i++) {
+            auto(autourl[i], i);
+        }
+    }
+
+    // 执行测速
+    run();
+
+    // 获取 URL 查询参数
+    function getQueryParams() {
+        const params = new URLSearchParams(window.location.search);
+        return params.toString();
+    }
+
+    // 获取查询参数并将其添加到 <a> 标签的 href 属性
+    function updateLinks() {
+        const queryParams = getQueryParams();
+        $('a').each(function() {
+            const href = $(this).attr('href');
+            $(this).attr('href', href + (href.includes('?') ? '&' : '?') + queryParams);
+        });
+    }
+
+    // 更新所有链接
+    updateLinks();
+    </script>
+</body>
+</html>
