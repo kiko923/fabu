@@ -25,27 +25,68 @@
     <div id="all">
         <div class="wrapper">
             <div class="main">
-                <h1>商城发布页</h1>
+                <h1>请选择一个域名进行访问</h1>
                 <div class="content">
                     <div class="content-top">
                         <h2>若网站不能打开请重新尝试其他域名</h2>
                         <ul class="speedlist">
                             <li>
-                                永至小店(主用)
-                                <a id="link1" href="https://shop.eydn.net" target="_blank">
-                                    <i>https://shop.eydn.net</i>
+                                永至小店（主用）
+                                <a id="link1" href="https://611114.xyz" target="_blank">
+                                    <i>https://611114.xyz</i>
                                 </a>
                                 <i class="ms1">线路延迟：<i id="lineMs0">获取中</i></i>
                             </li>
                             
-                            <li>
-                                永至小店(备用)
-                                <a id="link2" href="https://shop.98.do" target="_blank">
-                                    <i>https://shop.98.do</i>
-                                </a>
-                                <i class="ms1">线路延迟：<i id="lineMs1">获取中</i></i>
-                            </li>
+                            <!--<li>-->
+                            <!--    永至小店（备用）-->
+                            <!--    <a id="link2" href="https://shop.98.do" target="_blank">-->
+                            <!--        <i>https://shop.98.do</i>-->
+                            <!--    </a>-->
+                            <!--    <i class="ms1">线路延迟：<i id="lineMs1">获取中</i></i>-->
+                            <!--</li>-->
                             
+                            <!--<li>-->
+                            <!--    永至小店（备用）-->
+                            <!--    <a id="link3" href="https://shop.udid.uk" target="_blank">-->
+                            <!--        <i>https://shop.udid.uk</i>-->
+                            <!--    </a>-->
+                            <!--    <i class="ms1">线路延迟：<i id="lineMs2">获取中</i></i> <!-- 修改 id -->-->
+                            <!--</li>-->
+
+                            <!--<li>-->
+                            <!--    永至小店（备用）-->
+                            <!--    <a id="link4" href="https://shop.ts3.li" target="_blank">-->
+                            <!--        <i>https://shop.ts3.li</i>-->
+                            <!--    </a>-->
+                            <!--    <i class="ms1">线路延迟：<i id="lineMs3">获取中</i></i> <!-- 修改 id -->-->
+                            <!--</li>-->
+
+                            <!--<li>-->
+                            <!--    永至小店（备用）-->
+                            <!--    <a id="link5" href="https://shop.suo.lv" target="_blank">-->
+                            <!--        <i>https://shop.suo.lv</i>-->
+                            <!--    </a>-->
+                            <!--    <i class="ms1">线路延迟：<i id="lineMs4">获取中</i></i> <!-- 修改 id -->-->
+                            <!--</li>-->
+
+                            <!--<li>-->
+                            <!--    永至小店（备用）-->
+                            <!--    <a id="link5" href="https://shop.dwz.qa" target="_blank">-->
+                            <!--        <i>https://shop.dwz.qa</i>-->
+                            <!--    </a>-->
+                            <!--    <i class="ms1">线路延迟：<i id="lineMs5">获取中</i></i> <!-- 修改 id -->-->
+                            <!--</li>-->
+
+                            <!--<li>-->
+                            <!--    永至小店（备用）-->
+                            <!--    <a id="link5" href="https://shop.sourl.ru" target="_blank">-->
+                            <!--        <i>https://shop.sourl.ru</i>-->
+                            <!--    </a>-->
+                            <!--    <i class="ms1">线路延迟：<i id="lineMs6">获取中</i></i> <!-- 修改 id -->-->
+                            <!--</li>-->
+
+
                             <li>
                                 <span>电脑请安装<a href="https://www.google.cn/chrome/" target="_blank">Chrome浏览器</a>访问，手机请安装Safari浏览器</span>
                             </li>
@@ -127,15 +168,19 @@
     // 获取 URL 查询参数
     function getQueryParams() {
         const params = new URLSearchParams(window.location.search);
-        return params.toString();
+        return params.toString(); // 返回查询字符串
     }
 
     // 获取查询参数并将其添加到 <a> 标签的 href 属性
     function updateLinks() {
-        const queryParams = getQueryParams();
+        const queryParams = getQueryParams(); // 获取查询参数
         $('a').each(function() {
-            const href = $(this).attr('href');
-            $(this).attr('href', href + (href.includes('?') ? '&' : '?') + queryParams);
+            const href = $(this).attr('href'); // 获取当前链接的 href
+            if (queryParams) { // 如果有查询参数
+                $(this).attr('href', href + (href.includes('?') ? '&' : '?') + queryParams); // 加入参数
+            } else {
+                $(this).attr('href', href); // 保持原链接不变
+            }
         });
     }
 
